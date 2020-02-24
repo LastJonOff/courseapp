@@ -23,11 +23,11 @@ export class AuthService {
 
   registerUser(user){
     console.log(user);
-    return this.http.post('https://internettech.herokuapp.com/account/reg', user, httpOptions);
+    return this.http.post('http://localhost:3000/account/reg', user, httpOptions);
   }
 
   authUser(user){
-    return this.http.post('https://internettech.herokuapp.com/account/auth', user, httpOptions);
+    return this.http.post('http://localhost:3000/account/auth', user, httpOptions);
   }
 
   storeUser(token, user){

@@ -8,6 +8,7 @@ import { RegComponent } from './reg/reg.component';
 import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
+import { CardlistComponent } from "./cardlist/cardlist.component";
 
 import { RouterModule, Routes } from "@angular/router";
 import { FooterComponent } from './footer/footer.component';
@@ -25,6 +26,7 @@ const appRoute: Routes = [
   {path: 'reg', component: RegComponent},
   {path: 'auth', component: AuthComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [IsLoggedIn]},
+  {path: 'cardlist', component: CardlistComponent, canActivate: [IsLoggedIn]},
 ];
 
 @NgModule({
@@ -35,7 +37,8 @@ const appRoute: Routes = [
     AuthComponent,
     DashboardComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    CardlistComponent
   ],
   imports: [
     BrowserModule,

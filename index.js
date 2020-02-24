@@ -6,10 +6,11 @@ const passport = require('passport');
 const path = require('path');
 const config = require('./config/db');
 const account = require('./routes/account');
+const cardlist = require('./routes/cardlist');
 
 const app = express(); //app
 
-const port = process.env.PORT || 8080 ; //port
+const port = 3000;//process.env.PORT || 8080 ; //port
 
 app.use(passport.initialize());//initialize passport
 app.use(passport.session());
@@ -37,10 +38,11 @@ app.get('/', (req, res) =>{ //urls listen
 });
 
 app.use('/account',  account);
+app.use('/cardlist',  cardlist);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-})
+//app.get('*', (req, res) => {
+//  res.sendFile(path.join(__dirname, 'public/index.html'));
+//})
 
 app.listen(port, () => { //listen server
   console.log("Сервер был запущен по порту: ", port);
