@@ -39,7 +39,6 @@ export class AuthComponent implements OnInit {
 
     this.authService.authUser(user).subscribe(data => {
       this.dataAuth = data;
-      console.log(this.dataAuth);
       if(!this.dataAuth.success){
         this.flashMessages.show(this.dataAuth.msg, {
           cssClass: 'alert-danger',

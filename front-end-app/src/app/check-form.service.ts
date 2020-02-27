@@ -35,4 +35,25 @@ export class CheckFormService {
       return true;
     }
   }
+  checkTitle(title){
+    if(title == undefined){
+      return false;
+    } else{
+      return true;
+    }
+  }
+  checkImgSrc(imgsrc){
+    if(imgsrc == undefined){
+      return false;
+    } else{
+      return true;
+    }
+  }
+  checkRating(rating){
+    if(rating == undefined){
+      return false;
+    } else{
+      return true;
+    }
+  }
 }

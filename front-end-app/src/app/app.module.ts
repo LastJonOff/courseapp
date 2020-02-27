@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { CardlistComponent } from "./cardlist/cardlist.component";
+import { ModalOptionsComponent } from './modal-options/modal-options.component';
 
 import { RouterModule, Routes } from "@angular/router";
 import { FooterComponent } from './footer/footer.component';
@@ -38,7 +40,8 @@ const appRoute: Routes = [
     DashboardComponent,
     HomeComponent,
     FooterComponent,
-    CardlistComponent
+    CardlistComponent,
+    ModalOptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ const appRoute: Routes = [
     RouterModule.forRoot(appRoute),
     FormsModule,
     FlashMessagesModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [CheckFormService, AuthService, IsLoggedIn],
   bootstrap: [AppComponent]
