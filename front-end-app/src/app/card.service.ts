@@ -24,8 +24,16 @@ export class CardService {
     return this.http.post('http://localhost:3000/cardlist/add', card, httpOptions);
   }
 
+  updateCard(card){
+    return this.http.post('http://localhost:3000/cardlist/update', card, httpOptions);
+  }
+
   getCardList(){
     return this.http.post('http://localhost:3000/cardlist',{});
+  }
+
+  getCardById(id){
+    return this.http.request('post', 'http://localhost:3000/cardlist/getcard', { body: {id: id} });
   }
 
   deleteCard(id){

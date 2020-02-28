@@ -31,6 +31,38 @@ router.post('/', (req, res) =>{
   });
 });
 
+router.post('/update', (req, res) =>{ //urls listen
+//  let newCard = new Card({
+//    name: req.body.name,
+//    title: req.body.title,
+//    imagesrc: req.body.imagesrc,
+//    rating: req.body.rating,
+//  });
+  console.log(req.body);
+  Card.updateOne({_id: req.body.id_card}, {
+    name: req.body.name,
+    title: req.body.title,
+    imagesrc: req.body.imagesrc,
+    rating: req.body.rating,
+  }, (err, user) => {
+    if(err){
+      res.json({success: false, msg: "Ошибка в изменении карты"});
+    } else{
+      res.json({success: true, msg: "Карта изменена"});
+    }
+  });
+});
+
+router.post('/getcard', (req, res) =>{
+  Card.findOne({_id: req.body.id },(err, card) => {
+    if(err) throw err;
+    return res.status(200).json({
+      status: 'success',
+      data: card
+    });
+  });
+});
+
 router.delete('/delete', (req, res) =>{
   //Card.remove({_id: {$eq: req.body.id}});
   Card.getCardById(req.body.id, (err, card) => {
@@ -40,8 +72,6 @@ router.delete('/delete', (req, res) =>{
     } else{
       Card.deleteCard(req.body.id, (err, result) => {
         if (err) throw err;
-        console.log("result in deleteCard:");
-        console.log(result);
         return res.json({success: true, msg: "Карта успешно удалена"});
       });
     }

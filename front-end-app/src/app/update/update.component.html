@@ -1,25 +1,19 @@
 <div class="container">
   <div class="row">
-    <div *ngFor="let card of cards" class="col-md-4 col-sm-4 col-xs-12">
       <div class="">
-        <div class="">
-          <a class="btn btn-primary ml-1" [routerLink]= "['/cardlist', card._id]">U</a>
-          <button type="button" name="button" class="btn btn-primary ml-1" (click)="deleteCardClick(card._id)">X</button>
-        </div>
-        <img [src]="card.imagesrc" class="img-fluid " alt="">
+        <img [src]="this.card.imagesrc" class="img-fluid " alt="">
       </div>
 
       <div class="">
-        <h2 class="card-title">{{card.name}}</h2>
-        <p class="card-text">{{card.title}}</p>
+        <h2 class="card-title">{{this.card.name}}</h2>
+        <p class="card-text">{{this.card.title}}</p>
+        <p class="card-rating">Рейтинг карты: {{this.card.rating}}</p>
       </div>
-    </div>
   </div>
 </div><br><br>
 
-
-<h1>Добавить карту</h1>
-<form #form = "ngForm" (submit) = "addCardClick(form)">
+<h1>Изменить карту</h1>
+<form #form = "ngForm" (submit) = "UpdateCardClick(form)">
   <input type="text" [(ngModel)]="name" name="name" placeholder="Введите имя" class="form-control"><br>
   <input type="text" [(ngModel)]="title" name="title" placeholder="Введите описание" class="form-control"><br>
   <input type="text" [(ngModel)]="imagesrc" name="imagesrc" placeholder="Введите ссылку на изображение" class="form-control"><br>
@@ -31,5 +25,5 @@
     <option value="4">4</option>
     <option value="5">5</option>
   </select><br>
-  <button class="btn btn-success" type="submit">Добавить карту</button>
+  <button class="btn btn-success" type="submit">Изменить карту</button>
 </form>

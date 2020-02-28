@@ -1,43 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { CheckFormService } from "../check-form.service";
-import { FlashMessagesService } from "angular2-flash-messages";
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 import { CardService } from "../card.service";
-import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
+import { FlashMessagesService } from "angular2-flash-messages";
+import { CheckFormService } from "../check-form.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-cardlist',
-  templateUrl: './cardlist.component.html',
-  styleUrls: ['./cardlist.component.css']
+  selector: 'app-update',
+  templateUrl: './update.component.html',
+  styleUrls: ['./update.component.css']
 })
-export class CardlistComponent implements OnInit {
+export class UpdateComponent implements OnInit {
+  @Input() id: string;
+
+  public card:any = {};
+
+  dataCard:any = {};
 
   name: String;
   title: String;
   imagesrc: String;
   rating: Number;
-
-  public cards : any [];
-
-  dataCard:any = {};
+  id_card: any;
 
   constructor(
+    private activateRoute: ActivatedRoute,
+    private cardService: CardService,
     private checkForm: CheckFormService,
-    private flashMessages: FlashMessagesService,
     private router: Router,
-    private cardService: CardService
-  ) { }
+    private flashMessages: FlashMessagesService
+  ) {
+    this.activateRoute.paramMap.subscribe(params =>{
+        this.id = params.get('id')
 
-  ngOnInit(): void {
-    this.getAllCards();
+        this.cardService.getCardById(this.id).subscribe(result =>{
+          this.card = result['data'];
+        });
+    });
   }
 
-  addCardClick(form: NgForm){
+  ngOnInit(): void {
+  }
+
+  UpdateCardClick(form: NgForm){
     const card ={
       name: this.name,
       title: this.title,
       imagesrc: this.imagesrc,
-      rating: this.rating
+      rating: this.rating,
+      id_card: this.id
     };
 
     if(!this.checkForm.checkName(card.name)){
@@ -65,7 +77,7 @@ export class CardlistComponent implements OnInit {
       });
       return false;
     }
-    this.cardService.additionCard(card).subscribe(data => {
+    this.cardService.updateCard(card).subscribe(data => {
       this.dataCard = data;
       if(!this.dataCard.success){
         this.flashMessages.show(this.dataCard.msg, {
@@ -78,36 +90,9 @@ export class CardlistComponent implements OnInit {
           cssClass: 'alert-success',
           timeout: 4000
         });
-        this.getAllCards();
-        form.reset();
         this.router.navigate(['/cardlist']);
       }
     });
   }
 
-  getAllCards(){
-    this.cardService.getCardList().subscribe(result => {
-      this.cards = result['data'];
-    });
-  }
-  
-  deleteCardClick(id){
-    this.cardService.deleteCard(id).subscribe(result =>{
-      this.dataCard = result;
-      if(!this.dataCard.success){
-        this.flashMessages.show(this.dataCard.msg, {
-          cssClass: 'alert-danger',
-          timeout: 4000
-        });
-        this.router.navigate(['/cardlist']);
-      } else{
-        this.flashMessages.show(this.dataCard.msg, {
-          cssClass: 'alert-success',
-          timeout: 4000
-        });
-        this.getAllCards();
-        this.router.navigate(['/cardlist']);
-      }
-    });
-  }
 }

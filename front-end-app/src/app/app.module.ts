@@ -10,7 +10,6 @@ import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { CardlistComponent } from "./cardlist/cardlist.component";
-import { ModalOptionsComponent } from './modal-options/modal-options.component';
 
 import { RouterModule, Routes } from "@angular/router";
 import { FooterComponent } from './footer/footer.component';
@@ -22,6 +21,7 @@ import { AuthService } from "./auth.service";
 import { HttpClientModule } from '@angular/common/http';
 
 import { IsLoggedIn } from "./isLogged.guard";
+import { UpdateComponent } from './update/update.component';
 
 const appRoute: Routes = [
   {path: '', component: HomeComponent},
@@ -29,6 +29,7 @@ const appRoute: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [IsLoggedIn]},
   {path: 'cardlist', component: CardlistComponent, canActivate: [IsLoggedIn]},
+  {path: 'cardlist/:id', component: UpdateComponent},
 ];
 
 @NgModule({
@@ -41,7 +42,7 @@ const appRoute: Routes = [
     HomeComponent,
     FooterComponent,
     CardlistComponent,
-    ModalOptionsComponent
+    UpdateComponent
   ],
   imports: [
     BrowserModule,
